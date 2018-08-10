@@ -15,25 +15,25 @@ public class Quick {
 	 * 
 	 * The partitioning continues recursively until all the elements are sorted.
 	 */
-	private static int partition(Comparable[] a, int lo, int hi) {
-		int i = lo, j = hi+1;
+	private static int partition(Comparable[] a, int pivot, int hi) {
+		int i = pivot, j = hi+1;
 		
 		while (true) {
 			// scan from left to right while a[i] < a[lo]
-			while (less(a[++i], a[lo])) {
+			while (less(a[++i], a[pivot])) {
 				if (i == hi) break;
 			}
 
 			// scan from right to left while a[j] > a[lo]
-			while (less(a[lo], a[--j])) {
-				if (j == lo) break;
+			while (less(a[pivot], a[--j])) {
+				if (j == pivot) break;
 			}
 			
 			// check if pointers swap
 			if (i >= j) break;
 			exch(a, i, j);
 		}
-		exch(a, lo, j);
+		exch(a, pivot, j);
 		return j;
 	}
 	
@@ -42,10 +42,10 @@ public class Quick {
 		sort(a, 0, a.length-1);
 	}
 	
-	private static void sort(Comparable[] a, int lo, int hi) {
-		if (hi <= lo) return;
-		int j = partition(a, lo, hi);
-		sort(a, lo, j-1);
+	private static void sort(Comparable[] a, int pivot, int hi) {
+		if (hi <= pivot) return;
+		int j = partition(a, pivot, hi);
+		sort(a, pivot, j-1);
 		sort(a, j+1, hi);
 	}
 	
